@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>Eng. Brian Mbaka | KSTVET E-Portfolio</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        kstvet: {
+                            maroon: '#6B1D2F',
+                            maroonLight: '#8B253C',
+                            maroonDark: '#4A1220'
+                        },
+                        tech: {
+                            blue: '#3B82F6',
+                            blueDark: '#2563EB'
+                        },
+                        wa: {
+                            green: '#25D366',
+                            dark: '#128C7E'
+                        },
+                        cream: {
+                            50: '#FFFDF9',
+                            100: '#FBF6EC',
+                            200: '#F3EAD7'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Outfit', 'Inter', 'sans-serif'],
+                        serif: ['Georgia', 'Cambria', 'Times New Roman', 'serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        /* ensure full-height, scrolling and no weird overflow on mobile */
+        html, body {
+            min-height: 100vh;
+            min-height: -webkit-fill-available;
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
+        }
+        body {
+            font-family: 'Outfit', 'Inter', sans-serif;
+            background: linear-gradient(180deg, #FFFFFF 0%, #FFFDF9 35%, #FBF6EC 100%);
+            background-attachment: fixed;
+            color: #1E293B;
+            display: flex;
+            flex-direction: column;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        .card {
+            background: #FFFFFF;
+            border: 1px solid rgba(107, 29, 47, 0.12);
+            box-shadow: 0 10px 30px -12px rgba(74, 18, 32, 0.15);
+        }
+
+        .contact-card {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .contact-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 20px 40px -14px rgba(74, 18, 32, 0.28);
+        }
+
+        .header-bar {
+            background: rgba(255, 253, 249, 0.92);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-bottom: 2px solid #6B1D2F;
+        }
+
+        .text-gradient {
+            background: linear-gradient(135deg, #8B253C 0%, #6B1D2F 50%, #3B82F6 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .bg-grid-pattern {
+            background-size: 40px 40px;
+            background-image:
+                linear-gradient(to right, rgba(107, 29, 47, 0.04) 1px, transparent 1px),
+                linear-gradient(to bottom, rgba(107, 29, 47, 0.04) 1px, transparent 1px);
+        }
+
+        .glow-line {
+            height: 3px;
+            background: linear-gradient(90deg, transparent, #6B1D2F, #3B82F6, transparent);
+        }
+
+        .kstvet-logo-circle {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background-color: white;
+            border: 3px solid #6B1D2F;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+            flex-shrink: 0;
+        }
+
+        .kstvet-logo-inner {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: #6B1D2F;
+            position: relative;
+        }
+
+        .kstvet-logo-inner::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 50%; width: 4px; height: 100%;
+            background-color: white;
+            transform: translateX(-50%);
+        }
+        .kstvet-logo-inner::after {
+            content: '';
+            position: absolute;
+            top: 50%; left: 0; width: 100%; height: 4px;
+            background-color: white;
+            transform: translateY(-50%);
+        }
+
+        .kstvet-logo-gear {
+            position: absolute;
+            bottom: 2px;
+            left: 2px;
+            color: white;
+            font-size: 12px;
+            z-index: 10;
+        }
+
+        /* Floating decorative icons in the contact section */
+        @keyframes floaty {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-14px) rotate(6deg); }
+        }
+        .float-slow { animation: floaty 6s ease-in-out infinite; }
+        .float-mid  { animation: floaty 4.5s ease-in-out infinite; }
+        .float-fast { animation: floaty 3.5s ease-in-out infinite; }
+
+        /* Soft pulse ring behind the contact icons */
+        @keyframes ring {
+            0% { transform: scale(0.9); opacity: 0.6; }
+            100% { transform: scale(1.5); opacity: 0; }
+        }
+        .pulse-ring::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            border-radius: 1rem;
+            background: currentColor;
+            opacity: 0.25;
+            animation: ring 2.4s ease-out infinite;
+        }
+
+        .toast {
+            transition: opacity 0.3s ease, transform 0.3s ease;
+        }
+
+        /* make contact cards full-height on mobile, nice spacing */
+        @media (max-width: 640px) {
+            .contact-card {
+                padding: 1.5rem 1rem;
+            }
+            .contact-card .mt-5.flex {
+                flex-wrap: wrap;
+            }
+            .contact-card .flex-1 {
+                min-width: 0;
+                word-break: break-word;
+            }
+            .pulse-ring::before {
+                animation-duration: 3s;
+            }
+            .kstvet-logo-circle {
+                width: 50px;
+                height: 50px;
+                border-width: 2px;
+            }
+            .kstvet-logo-inner {
+                width: 32px;
+                height: 32px;
+            }
+            .kstvet-logo-inner::before,
+            .kstvet-logo-inner::after {
+                width: 3px;
+                height: 3px;
+            }
+            .kstvet-logo-inner::before {
+                width: 3px;
+                height: 100%;
+            }
+            .kstvet-logo-inner::after {
+                height: 3px;
+                width: 100%;
+            }
+            .kstvet-logo-gear {
+                font-size: 10px;
+                bottom: 1px;
+                left: 1px;
+            }
+        }
+
+        /* ensure buttons don't overflow on tiny screens */
+        .contact-card a,
+        .contact-card button {
+            white-space: normal;
+            word-break: break-word;
+            text-align: center;
+            line-height: 1.4;
+        }
+
+        /* smooth appearance for footer */
+        footer {
+            margin-top: auto;
+        }
+
+        /* fix for iOS background attachment */
+        @supports (-webkit-touch-callout: none) {
+            body {
+                background-attachment: scroll;
+            }
+        }
+    </style>
+</head>
+<body class="antialiased min-h-screen flex flex-col selection:bg-kstvet-maroon selection:text-white">
+
+    <!-- Header (branding only) -->
+    <header class="fixed top-0 left-0 w-full z-50 header-bar">
+        <div class="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8">
+            <div class="flex items-center h-16 sm:h-20">
+                <div class="flex items-center gap-2 sm:gap-4">
+                    <div class="kstvet-logo-circle shadow-lg shadow-kstvet-maroon/20">
+                        <div class="kstvet-logo-inner">
+                            <i class="fa-solid fa-gear kstvet-logo-gear"></i>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="flex items-center gap-1 sm:gap-2 flex-wrap">
+                            <span class="text-base sm:text-xl font-bold tracking-tight text-slate-900 block leading-none font-serif">Eng. Brian Mbaka</span>
+                            <i class="fa-solid fa-circle-check text-tech-blue text-xs sm:text-sm" title="Verified KSTVET Educator"></i>
+                        </div>
+                        <span class="text-[10px] sm:text-xs font-semibold text-kstvet-maroonLight tracking-wider block mt-1">KSTVET TRAINER.</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main class="flex-grow pt-16 sm:pt-20">
+        <!-- Contact Section -->
+        <section id="contact" class="relative pt-6 sm:pt-10 pb-8 sm:pb-12 overflow-hidden bg-grid-pattern">
+            <!-- Decorative background blobs -->
+            <div class="absolute -top-10 -left-10 w-48 sm:w-72 h-48 sm:h-72 bg-wa-green/10 rounded-full blur-3xl pointer-events-none"></div>
+            <div class="absolute bottom-0 right-0 w-56 sm:w-80 h-56 sm:h-80 bg-tech-blue/10 rounded-full blur-3xl pointer-events-none"></div>
+            <div class="absolute top-1/3 left-1/2 -translate-x-1/2 w-48 sm:w-72 h-48 sm:h-72 bg-kstvet-maroon/5 rounded-full blur-3xl pointer-events-none"></div>
+
+            <!-- Floating graphic icons (hidden on mobile for clarity) -->
+            <i class="fa-solid fa-envelope-open-text float-slow absolute top-10 left-[6%] text-4xl text-kstvet-maroon/15 hidden md:block pointer-events-none"></i>
+            <i class="fa-brands fa-whatsapp float-mid absolute top-24 right-[7%] text-5xl text-wa-green/25 hidden md:block pointer-events-none"></i>
+            <i class="fa-solid fa-phone-volume float-fast absolute bottom-16 left-[9%] text-4xl text-tech-blue/20 hidden md:block pointer-events-none"></i>
+            <i class="fa-solid fa-paper-plane float-slow absolute bottom-24 right-[10%] text-3xl text-kstvet-maroon/15 hidden md:block pointer-events-none"></i>
+
+            <div class="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 relative z-10">
+
+                <!-- Section heading -->
+                <div class="text-center max-w-3xl mx-auto mb-6 sm:mb-8">
+                    <span class="text-kstvet-maroonLight text-xs sm:text-sm font-semibold tracking-wider uppercase">Contact</span>
+                    <h2 class="text-2xl sm:text-3xl md:text-4xl font-bold text-slate-900 mt-1 sm:mt-2 leading-tight font-serif">
+                        Let's <span class="text-gradient font-sans">Get in Touch</span>
+                    </h2>
+                    <div class="w-16 h-1 bg-gradient-to-r from-kstvet-maroon to-tech-blue mt-3 sm:mt-4 mx-auto rounded-full"></div>
+                    <p class="text-slate-600 text-sm sm:text-base leading-relaxed mt-3 sm:mt-5 px-1">
+                        Whether you are a learner, a fellow trainer, an institution or an organisation, I would be glad to hear from you. Reach out on whichever channel is most convenient and I will get back to you as soon as I can.
+                    </p>
+                </div>
+
+                <!-- Contact cards (full width & scrollable on small screens) -->
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-6">
+
+                    <!-- WhatsApp -->
+                    <div class="contact-card card rounded-2xl p-5 sm:p-7 text-center border-t-4 border-t-wa-green flex flex-col">
+                        <div class="relative mx-auto w-14 h-14 sm:w-16 sm:h-16 text-wa-green">
+                            <span class="pulse-ring absolute inset-0 rounded-2xl"></span>
+                            <div class="relative w-14 h-14 sm:w-16 sm:h-16 rounded-2xl bg-wa-green flex items-center justify-center text-white text-2xl sm:text-3xl shadow-lg shadow-wa-green/30">
+                                <i class="fa-brands fa-whatsapp"></i>
+                            </div>
+                        </div>
+                        <h3 class="text-lg sm:text-xl font-bold text-slate-900 mt-3 sm:mt-5 font-serif">WhatsApp</h3>
+                        <p class="text-slate-500 text-xs sm:text-sm mt-1 sm:mt-2 leading-relaxed">Quick questions, class matters or collaboration ideas. Send me a message anytime.</p>
+                        <p class="text-base sm:text-lg font-semibold text-slate-900 mt-2 sm:mt-4 tracking-wide break-words"></p>
+                        <div class="mt-4 sm:mt-5 flex gap-2 mt-auto pt-3 sm:pt-5">
+                            <a href="https://wa.me/254703917940?text=Hello%20Eng.%20Brian%2C%20I%20found%20your%20KSTVET%20e-portfolio%20and%20would%20like%20to%20get%20in%20touch."
+                               target="_blank" rel="noopener"
+                               class="flex-1 py-2.5 sm:py-3 rounded-xl bg-wa-green text-white font-semibold text-xs sm:text-sm hover:bg-wa-dark transition-colors">
+                                <i class="fa-brands fa-whatsapp mr-1"></i> Chat on WhatsApp
+                            </a>
+                            <button type="button" onclick="copyText('+254703917940', this)" title="Copy number"
+                                    class="w-10 sm:w-12 rounded-xl border border-slate-200 text-slate-500 hover:text-wa-dark hover:border-wa-green transition-colors flex items-center justify-center">
+                                <i class="fa-regular fa-copy text-sm"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Call -->
+                    <div class="contact-card card rounded-2xl p-5 sm:p-7 text-center border-t-4 border-t-kstvet-maroon flex flex-col">
+                        <div class="relative mx-auto w-14 h-14 sm:w-16 sm:h-16 text-kstvet-maroon">
+                            <span class="pulse-ring absolute inset-0 rounded-2xl"></span>
+                            <div class="relative w-14 h-14 sm:w-16 sm:h-16 rounded-2xl bg-gradient-to-tr from-kstvet-maroon to-kstvet-maroonLight flex items-center justify-center text-white text-xl sm:text-2xl shadow-lg shadow-kstvet-maroon/30">
+                                <i class="fa-solid fa-phone"></i>
+                            </div>
+                        </div>
+                        <h3 class="text-lg sm:text-xl font-bold text-slate-900 mt-3 sm:mt-5 font-serif">Call</h3>
+                        <p class="text-slate-500 text-xs sm:text-sm mt-1 sm:mt-2 leading-relaxed">Prefer to talk it through? Give me a call for urgent or detailed conversations.</p>
+                        <p class="text-base sm:text-lg font-semibold text-slate-900 mt-2 sm:mt-4 tracking-wide break-words"></p>
+                        <div class="mt-4 sm:mt-5 flex gap-2 mt-auto pt-3 sm:pt-5">
+                            <a href="tel:+254111202756"
+                               class="flex-1 py-2.5 sm:py-3 rounded-xl bg-gradient-to-r from-kstvet-maroon to-kstvet-maroonDark text-white font-semibold text-xs sm:text-sm hover:opacity-90 transition-opacity">
+                                <i class="fa-solid fa-phone mr-1"></i> Call Now
+                            </a>
+                            <button type="button" onclick="copyText('+254111202756', this)" title="Copy number"
+                                    class="w-10 sm:w-12 rounded-xl border border-slate-200 text-slate-500 hover:text-kstvet-maroon hover:border-kstvet-maroon transition-colors flex items-center justify-center">
+                                <i class="fa-regular fa-copy text-sm"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Email -->
+                    <div class="contact-card card rounded-2xl p-5 sm:p-7 text-center border-t-4 border-t-tech-blue flex flex-col">
+                        <div class="relative mx-auto w-14 h-14 sm:w-16 sm:h-16 text-tech-blue">
+                            <span class="pulse-ring absolute inset-0 rounded-2xl"></span>
+                            <div class="relative w-14 h-14 sm:w-16 sm:h-16 rounded-2xl bg-gradient-to-tr from-tech-blueDark to-tech-blue flex items-center justify-center text-white text-xl sm:text-2xl shadow-lg shadow-tech-blue/30">
+                                <i class="fa-solid fa-envelope"></i>
+                            </div>
+                        </div>
+                        <h3 class="text-lg sm:text-xl font-bold text-slate-900 mt-3 sm:mt-5 font-serif">Email</h3>
+                        <p class="text-slate-500 text-xs sm:text-sm mt-1 sm:mt-2 leading-relaxed">For formal enquiries, institutional requests and documents, write to me by email.</p>
+                        <p class="text-xs sm:text-base font-semibold text-slate-900 mt-2 sm:mt-4 break-all px-1"></p>
+                        <div class="mt-4 sm:mt-5 flex gap-2 mt-auto pt-3 sm:pt-5">
+                            <a href="mailto:2026cs176092@kstvet.ac.ke?subject=Enquiry%20from%20KSTVET%20E-Portfolio"
+                               class="flex-1 py-2.5 sm:py-3 rounded-xl bg-tech-blueDark text-white font-semibold text-xs sm:text-sm hover:bg-tech-blue transition-colors">
+                                <i class="fa-solid fa-paper-plane mr-1"></i> Send Email
+                            </a>
+                            <button type="button" onclick="copyText('2026cs176092@kstvet.ac.ke', this)" title="Copy email"
+                                    class="w-10 sm:w-12 rounded-xl border border-slate-200 text-slate-500 hover:text-tech-blueDark hover:border-tech-blue transition-colors flex items-center justify-center">
+                                <i class="fa-regular fa-copy text-sm"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Copy toast -->
+    <div id="toast" class="toast fixed bottom-6 left-1/2 -translate-x-1/2 translate-y-4 opacity-0 pointer-events-none z-50 px-4 sm:px-5 py-2.5 sm:py-3 rounded-xl bg-slate-900 text-white text-xs sm:text-sm font-medium shadow-xl max-w-[90vw] truncate">
+        <i class="fa-solid fa-circle-check text-wa-green mr-2"></i><span id="toast-text">Copied</span>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-cream-100 border-t border-kstvet-maroon/10 py-6 sm:py-8 relative z-10 border-b-4 border-b-kstvet-maroon">
+        <div class="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8">
+            <div class="flex flex-col md:flex-row items-center justify-between gap-4 sm:gap-6">
+                <div class="flex items-center gap-2 sm:gap-3">
+                    <div class="kstvet-logo-circle scale-75 origin-left border-2">
+                         <div class="kstvet-logo-inner">
+                            <i class="fa-solid fa-gear kstvet-logo-gear"></i>
+                        </div>
+                    </div>
+                    <div>
+                        <span class="text-sm sm:text-base font-bold text-slate-900 block leading-none font-serif">Eng. Brian Mbaka</span>
+                        <span class="text-[10px] sm:text-xs text-slate-500">Kenya School of TVET (KSTVET)</span>
+                    </div>
+                </div>
+
+                <div class="text-[10px] sm:text-xs text-slate-500 text-center md:text-right">
+                    <p class="mb-1 text-kstvet-maroon italic font-serif">"The Home of Technical Education"</p>
+                    &copy; <span id="year"></span> Eng. Brian Mbaka.
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        document.getElementById('year').textContent = new Date().getFullYear();
+
+        let toastTimer;
+        function showToast(msg) {
+            const t = document.getElementById('toast');
+            document.getElementById('toast-text').textContent = msg;
+            t.classList.remove('opacity-0', 'translate-y-4');
+            clearTimeout(toastTimer);
+            toastTimer = setTimeout(() => t.classList.add('opacity-0', 'translate-y-4'), 1800);
+        }
+
+        function copyText(text) {
+            const done = () => showToast('Copied: ' + text);
+            if (navigator.clipboard && navigator.clipboard.writeText) {
+                navigator.clipboard.writeText(text).then(done).catch(() => fallbackCopy(text, done));
+            } else {
+                fallbackCopy(text, done);
+            }
+        }
+
+        function fallbackCopy(text, done) {
+            const ta = document.createElement('textarea');
+            ta.value = text;
+            ta.style.position = 'fixed';
+            ta.style.opacity = '0';
+            document.body.appendChild(ta);
+            ta.select();
+            try { document.execCommand('copy'); done(); } catch (e) { showToast('Copy failed'); }
+            document.body.removeChild(ta);
+        }
+    </script>
+</body>
+</html>
